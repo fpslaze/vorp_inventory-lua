@@ -35,7 +35,25 @@ function InventoryService.removeItem(name, id, count)
 	local item = UserInventory[id]
 	if not item then return end
 
-	item:quitCount(count)
+	local myInput = {
+		type = "enableinput", -- don't touch
+		inputType = "input", -- input type
+		button = "Bestätigen", -- button name
+		placeholder = "ITEM ENTFERNEN", -- placeholder name
+		style = "block", -- don't touch
+		attributes = {
+			inputHeader = "ITEM WEGWERFEN", -- header
+			type = "text", -- inputype text, number,date,textarea ETC
+			pattern = "[0-9]", --  only numbers "[0-9]" | for letters only "[A-Za-z]+" 
+			title = "numbers only", -- if input doesnt match show this message
+			style = "border-radius: 10px; background-color: ; border:none;"-- style 
+		}
+	}
+	local qty = exports.vorp_inputs:advancedInput(myInput)
+	qty = tonumber(result) -- convert result to a number
+	
+
+	item:quitCount(qty)
 
 	if item:getCount() <= 0 then
 		UserInventory[id] = nil
