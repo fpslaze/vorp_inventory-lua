@@ -53,6 +53,8 @@ function InventoryService.removeItem(name, id, count)
 	qty = tonumber(result) -- convert result to a number
 	
 
+	Core.NotifyTip("Du hast "..count.."x "..string.upper(name).." weggeworfen!")
+
 	item:quitCount(qty)
 
 	if item:getCount() <= 0 then
